@@ -1,11 +1,855 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<!-- ========== NAVBAR ========== -->
+	<header
+		id="navbar"
+		class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm transition-all duration-300"
+		style="box-shadow: 0 1px 0 rgba(0,0,0,0.06);"
+	>
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+			<nav class="flex items-center justify-between h-18 py-4">
+				<!-- Logo -->
+				<a href="#" class="flex items-center gap-3 group">
+				<div class="w-9 h-9 bg-amber-800 flex items-center justify-center rounded-sm">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+					<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+					<polyline points="9 22 9 12 15 12 15 22"/>
+					</svg>
+				</div>
+				<span class="text-stone-900 font-serif text-xl tracking-wide">
+					Artesanos<span class="text-amber-700">.</span>
+				</span>
+				</a>
+
+				<!-- Desktop Nav Links -->
+				<ul class="hidden lg:flex items-center gap-8">
+				{['Inicio','Servicios','Trabajos','Nosotros','Contacto'].map(item => (
+					<li>
+					<a
+						href={`#${item.toLowerCase()}`}
+						class="text-stone-500 hover:text-amber-800 text-sm tracking-widest uppercase font-medium transition-colors duration-200"
+					>
+						{item}
+					</a>
+					</li>
+				))}
+				</ul>
+
+				<!-- WhatsApp CTA -->
+				<a
+					href="https://wa.me/5491100000000"
+					target="_blank"
+					class="hidden lg:flex items-center gap-2 bg-amber-800 hover:bg-amber-700 text-white text-sm px-5 py-2.5 rounded-sm font-medium tracking-wide transition-all duration-200 hover:shadow-md"
+				>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+					</svg>
+					WhatsApp
+				</a>
+
+				<!-- Mobile menu button -->
+				<button id="menu-toggle" class="lg:hidden text-stone-700 p-2">
+					<svg id="menu-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="3" y1="6" x2="21" y2="6"/>
+						<line x1="3" y1="12" x2="21" y2="12"/>
+						<line x1="3" y1="18" x2="21" y2="18"/>
+					</svg>
+				</button>
+			</nav>
+
+			<!-- Mobile Menu -->
+			<div id="mobile-menu" class="hidden lg:hidden pb-4 border-t border-stone-100">
+				<ul class="flex flex-col gap-1 pt-3">
+				{['Inicio','Servicios','Trabajos','Nosotros','Contacto'].map(item => (
+					<li>
+					<a
+						href={`#${item.toLowerCase()}`}
+						class="block py-2.5 px-2 text-stone-600 hover:text-amber-800 text-sm tracking-widest uppercase font-medium transition-colors"
+					>
+						{item}
+					</a>
+					</li>
+				))}
+				</ul>
+				<a
+					href="https://wa.me/5491100000000"
+					target="_blank"
+					class="mt-3 flex items-center justify-center gap-2 bg-amber-800 text-white text-sm px-5 py-3 rounded-sm font-medium tracking-wide"
+				>
+					Contactar por WhatsApp
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<!-- ========== HERO ========== -->
+	<section id="inicio" class="relative min-h-screen flex items-center overflow-hidden">
+		<!-- Background image -->
+		<div class="absolute inset-0 z-0">
+		<img
+			src="/hero/heroInicio.webp"
+			alt="Taller de carpintería"
+			class="w-full h-full object-cover"
+			loading="lazy"
+		/>
+		<div class="absolute inset-0 bg-stone-900/60"></div>
+		<div class="absolute inset-0 bg-gradient-to-r from-stone-950/70 via-stone-900/40 to-transparent"></div>
+		</div>
+
+		<!-- Hero Content -->
+		<div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-20">
+		<div class="max-w-2xl">
+			<p class="hero-fade-up text-amber-400 text-xs tracking-[0.3em] uppercase font-medium mb-6" style="animation-delay: 0.1s">
+			Artesanía desde 1998
+			</p>
+			<h1 class="hero-fade-up text-white font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6" style="animation-delay: 0.25s">
+			Muebles de madera<br/>
+			<em class="not-italic text-amber-300">hechos a medida</em>
+			</h1>
+			<p class="hero-fade-up text-stone-300 text-lg md:text-xl leading-relaxed mb-10 max-w-xl" style="animation-delay: 0.4s">
+			Transformamos la madera en piezas únicas que definen cada espacio.
+			Calidad artesanal, diseño contemporáneo y atención personalizada.
+			</p>
+			<div class="hero-fade-up flex flex-wrap gap-4" style="animation-delay: 0.55s">
+			<a
+				href="#contacto"
+				class="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-600 text-white px-8 py-4 text-sm tracking-widest uppercase font-semibold transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
+			>
+				Solicitar presupuesto
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<path d="M5 12h14M12 5l7 7-7 7"/>
+				</svg>
+			</a>
+			<a
+				href="#trabajos"
+				class="inline-flex items-center gap-2 border border-white/40 hover:border-white text-white px-8 py-4 text-sm tracking-widest uppercase font-semibold transition-all duration-200 hover:bg-white/10"
+			>
+				Ver trabajos
+			</a>
+			</div>
+		</div>
+		</div>
+
+		<!-- Stats bar -->
+		<div class="absolute bottom-0 left-0 right-0 z-10">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+			<div class="hero-fade-up bg-white/95 backdrop-blur-sm grid grid-cols-3 divide-x divide-stone-200" style="animation-delay: 0.7s">
+			{[
+				{ num: '25+', label: 'Años de experiencia' },
+				{ num: '800+', label: 'Proyectos realizados' },
+				{ num: '100%', label: 'Clientes satisfechos' },
+			].map(stat => (
+				<div class="px-6 py-5 text-center">
+				<p class="text-amber-800 font-serif text-3xl font-bold">{stat.num}</p>
+				<p class="text-stone-500 text-xs tracking-wide uppercase mt-1">{stat.label}</p>
+				</div>
+			))}
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<!-- ========== SOBRE NOSOTROS ========== -->
+	<section id="nosotros" class="py-28 bg-white">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+			<!-- Text -->
+			<div class="reveal-left">
+			<p class="text-amber-700 text-xs tracking-[0.3em] uppercase font-medium mb-4">Nuestra historia</p>
+			<h2 class="font-serif text-4xl md:text-5xl text-stone-900 leading-tight mb-8">
+				Más de dos décadas<br/>creando con madera
+			</h2>
+			<div class="space-y-5 text-stone-500 text-base leading-relaxed">
+				<p>
+				Somos un taller familiar fundado en 1998, ubicado en el corazón de Córdoba.
+				Cada pieza que fabricamos lleva consigo años de experiencia, pasión genuina
+				por el oficio y un compromiso irrenunciable con la calidad.
+				</p>
+				<p>
+				Trabajamos con maderas seleccionadas de origen sustentable, combinando técnicas
+				tradicionales de ebanistería con herramientas de precisión modernas. El resultado
+				son piezas únicas, duraderas y con una identidad propia.
+				</p>
+				<p>
+				Cada proyecto comienza con una conversación: entendemos tus necesidades,
+				tu espacio y tu estilo de vida para diseñar algo verdaderamente especial.
+				</p>
+			</div>
+			<div class="mt-10 flex items-center gap-6">
+				<a
+				href="#contacto"
+				class="inline-flex items-center gap-2 text-amber-800 hover:text-amber-700 text-sm tracking-widest uppercase font-semibold border-b-2 border-amber-800 hover:border-amber-600 pb-1 transition-all duration-200"
+				>
+				Conocer más
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+					<path d="M5 12h14M12 5l7 7-7 7"/>
+				</svg>
+				</a>
+			</div>
+			</div>
+
+			<!-- Image -->
+			<div class="relative reveal-right">
+			<div class="aspect-[4/5] overflow-hidden">
+				<img
+					src="/nosotros/nosotrosInicio.webp"
+					alt="Carpintero trabajando"
+					class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+					loading="lazy"
+				/>
+			</div>
+			<!-- Decorative element -->
+			<div class="absolute -bottom-6 -left-6 w-32 h-32 bg-amber-50 border-4 border-amber-100 -z-10"></div>
+			<div class="absolute -top-6 -right-6 w-24 h-24 bg-stone-100 -z-10"></div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<!-- ========== SERVICIOS ========== -->
+	<section id="servicios" class="py-28 bg-stone-200">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<!-- Header -->
+		<div class="reveal-up text-center max-w-xl mx-auto mb-16">
+			<p class="text-amber-700 text-xs tracking-[0.3em] uppercase font-medium mb-4">Lo que hacemos</p>
+			<h2 class="font-serif text-4xl md:text-5xl text-stone-900 leading-tight mb-5">
+			Nuestros servicios
+			</h2>
+			<p class="text-stone-500 text-base leading-relaxed">
+			Desde muebles a medida hasta grandes proyectos de diseño interior,
+			cubrimos todas las necesidades en madera.
+			</p>
+		</div>
+
+		<!-- Grid -->
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			{[
+			{
+				icon: `<path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>`,
+				title: 'Muebles a medida',
+				desc: 'Diseñamos y fabricamos cada pieza adaptada exactamente a tu espacio, gusto y necesidades específicas.'
+			},
+			{
+				icon: `<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>`,
+				title: 'Cocinas de madera',
+				desc: 'Muebles de cocina funcionales y elegantes. Acabados premium que combinan estética y durabilidad.'
+			},
+			{
+				icon: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>`,
+				title: 'Placares y vestidores',
+				desc: 'Organizamos tu espacio con soluciones de guardado a medida, desde placares simples hasta walk-in closets.'
+			},
+			{
+				icon: `<path d="M12 22V12M12 12L7 7M12 12l5-5"/><path d="M2 17l4.5-4.5M17.5 12.5L22 17"/>`,
+				title: 'Restauración de muebles',
+				desc: 'Devolvemos vida a piezas antiguas con técnicas especializadas de restauración y terminación.'
+			},
+			{
+				icon: `<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><rect x="7" y="14" width="10" height="8"/>`,
+				title: 'Decks y pérgolas',
+				desc: 'Ampliamos tus espacios exteriores con decks y pérgolas de maderas resistentes e impermeabilizadas.'
+			},
+			{
+				icon: `<circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M20 12h-2M6 12H4M18.66 18.66l-1.41-1.41M6.76 6.76L5.34 5.34"/>`,
+				title: 'Trabajos especiales',
+				desc: 'Escaleras, revestimientos, molduras, puertas y cualquier trabajo especial en madera a pedido.'
+			},
+			].map((service, i) => (
+			<div
+				class="stagger-card group bg-white p-8 hover:bg-amber-800 transition-all duration-300 cursor-default border border-stone-100 hover:border-amber-800 hover:shadow-xl hover:-translate-y-1"
+				style={`--stagger-delay: ${i * 80}ms`}
+			>
+				<div class="mb-6">
+				<div class="w-12 h-12 flex items-center justify-center border border-stone-200 group-hover:border-amber-600 transition-colors duration-300">
+					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-amber-700 group-hover:text-amber-200 transition-colors duration-300">
+					<Fragment set:html={service.icon} />
+					</svg>
+				</div>
+				</div>
+				<h3 class="font-serif text-xl text-stone-900 group-hover:text-white mb-3 transition-colors duration-300">
+				{service.title}
+				</h3>
+				<p class="text-stone-500 group-hover:text-amber-100 text-sm leading-relaxed transition-colors duration-300">
+				{service.desc}
+				</p>
+			</div>
+			))}
+		</div>
+		</div>
+	</section>
+
+	<!-- ========== TRABAJOS REALIZADOS ========== -->
+	<section id="trabajos" class="py-28 bg-white">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+			<div class="reveal-up flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-6">
+				<div>
+					<p class="text-amber-700 text-xs tracking-[0.3em] uppercase font-medium mb-4">Portfolio</p>
+					<h2 class="font-serif text-4xl md:text-5xl text-stone-900 leading-tight">
+						Nuestros trabajos
+					</h2>
+				</div>
+				<a
+				href="#contacto"
+				class="self-start sm:self-auto text-amber-800 hover:text-amber-700 text-sm tracking-widest uppercase font-semibold border-b-2 border-amber-800 hover:border-amber-600 pb-1 transition-all duration-200 whitespace-nowrap"
+				>
+					Ver todos →
+				</a>
+			</div>
+
+			<!-- Gallery Grid -->
+			<div class="flex flex-col gap-3 md:gap-4 lg:grid lg:grid-cols-3 lg:grid-rows-2">
+				<!-- Imagen grande: full width mobile, col-span-2 row-span-2 en desktop -->
+				<div class="stagger-card relative overflow-hidden group h-64 sm:h-80 lg:col-span-2 lg:row-span-2 lg:h-auto" style="--stagger-delay: 0ms">
+					<img
+						src="/galeria/galeriaMesa.webp"
+						alt="Mesa de madera artesanal"
+						class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+					/>
+					<div class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/30 transition-all duration-300 flex items-end p-6">
+						<span class="text-white font-serif text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+						Mesa de madera maciza
+						</span>
+					</div>
+				</div>
+
+				<!-- Imágenes pequeñas: 2 col en mobile, 1 col en desktop (col 3) -->
+				<div class="grid grid-cols-2 gap-3 md:gap-4 lg:contents">
+				{[
+					{ src: '/galeria/galeriaSilla.webp', label: 'Silla de madera artesanal' },
+					{ src: '/galeria/galeriaRepisaFlotante.webp', label: 'Repisas flotantes de madera' },
+					{ src: '/galeria/galeriaMesaComedor.webp', label: 'Mesa de comedor de madera' },
+					{ src: '/galeria/galeriaTablaMadera.webp', label: 'Tabla de madera natural' },
+					{ src: '/galeria/galeriaMuebleMadera.webp', label: 'Mueble de madera moderno' },
+				].map((img, i) => (
+				<div class="stagger-card relative overflow-hidden group h-36 sm:h-44 lg:h-auto" style={`--stagger-delay: ${(i + 1) * 80}ms`}>
+					<img
+						src={img.src}
+						alt={img.label}
+						loading="lazy"
+						decoding="async"
+						class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+					/>
+					<div class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/30 transition-all duration-300 flex items-end p-4">
+						<span class="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+							{img.label}
+						</span>
+					</div>
+				</div>
+				))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ========== PROCESO ========== -->
+	<section class="py-28 bg-stone-900">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="reveal-up text-center max-w-xl mx-auto mb-16">
+			<p class="text-amber-400 text-xs tracking-[0.3em] uppercase font-medium mb-4">Cómo trabajamos</p>
+			<h2 class="font-serif text-4xl md:text-5xl text-white leading-tight">
+			Nuestro proceso
+			</h2>
+		</div>
+
+		<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+			{[
+			{
+				num: '01',
+				icon: `<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>`,
+				title: 'Consulta',
+				desc: 'Nos reunimos para conocer tu proyecto, espacio y necesidades. Todo empieza con una buena conversación.'
+			},
+			{
+				num: '02',
+				icon: `<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>`,
+				title: 'Diseño',
+				desc: 'Elaboramos planos detallados y renders para que puedas visualizar exactamente el resultado final.'
+			},
+			{
+				num: '03',
+				icon: `<path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>`,
+				title: 'Fabricación',
+				desc: 'Trabajamos en nuestro taller con materiales premium y técnicas precisas para crear cada pieza con cuidado.'
+			},
+			{
+				num: '04',
+				icon: `<path d="M5 12h14M12 5l7 7-7 7"/><rect x="2" y="3" width="20" height="14" rx="2"/>`,
+				title: 'Entrega e instalación',
+				desc: 'Instalamos todo en tu espacio asegurándonos de que cada detalle quede perfecto. Tu satisfacción es nuestra garantía.'
+			},
+			].map((step, i) => (
+			<div class="stagger-card relative" style={`--stagger-delay: ${i * 100}ms`}>
+				{i < 3 && (
+				<div class="hidden lg:block absolute top-8 left-full w-full h-px border-t border-dashed border-stone-700 z-0" style="width: calc(100% - 2rem); left: calc(100% - 1rem);"></div>
+				)}
+				<div class="relative z-10">
+				<div class="flex items-center gap-4 mb-6">
+					<span class="text-stone-700 font-serif text-5xl font-bold leading-none">{step.num}</span>
+					<div class="w-10 h-10 flex items-center justify-center border border-stone-700">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-amber-400">
+						<Fragment set:html={step.icon} />
+					</svg>
+					</div>
+				</div>
+				<h3 class="font-serif text-xl text-white mb-3">{step.title}</h3>
+				<p class="text-stone-400 text-sm leading-relaxed">{step.desc}</p>
+				</div>
+			</div>
+			))}
+		</div>
+		</div>
+	</section>
+
+	<!-- ========== TESTIMONIOS ========== -->
+	<section class="py-28 bg-stone-200">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="reveal-up text-center max-w-xl mx-auto mb-16">
+			<p class="text-amber-700 text-xs tracking-[0.3em] uppercase font-medium mb-4">Opiniones</p>
+			<h2 class="font-serif text-4xl md:text-5xl text-stone-900 leading-tight">
+			Lo que dicen nuestros clientes
+			</h2>
+		</div>
+
+		<div class="grid md:grid-cols-3 gap-6">
+			{[
+			{
+				quote: 'El placard que me hicieron superó todas mis expectativas. La atención personalizada y los detalles de terminación son impecables. Recomendaría a Artesanos sin dudarlo.',
+				name: 'Valentina M.',
+				role: 'Decoradora de interiores',
+				stars: 5,
+			},
+			{
+				quote: 'Nos remodelaron toda la cocina y el resultado fue extraordinario. Muy profesionales en cada etapa del proyecto. Los materiales de primera calidad se notan en cada detalle.',
+				name: 'Rodrigo P.',
+				role: 'Propietario — Villa Carlos Paz',
+				stars: 5,
+			},
+			{
+				quote: 'Pedí una mesa de comedor a medida para un espacio complicado. La resolución fue perfecta y el plazo de entrega se cumplió exactamente. Volveré para el próximo proyecto.',
+				name: 'Lucía G.',
+				role: 'Arquitecta — Córdoba Capital',
+				stars: 5,
+			},
+			].map((t, i) => (
+			<div
+				class="stagger-card bg-white p-8 border border-stone-100 hover:border-amber-200 hover:shadow-lg transition-all duration-300"
+				style={`--stagger-delay: ${i * 120}ms`}
+			>
+				<!-- Stars -->
+				<div class="flex gap-1 mb-6">
+				{[...Array(t.stars)].map(() => (
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="#b45309" class="text-amber-700">
+					<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+					</svg>
+				))}
+				</div>
+				<!-- Quote mark -->
+				<p class="text-stone-500 text-base leading-relaxed mb-8 italic">
+				"{t.quote}"
+				</p>
+				<!-- Author -->
+				<div class="flex items-center gap-3">
+				<div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+					<span class="text-amber-800 font-serif font-bold text-sm">{t.name.charAt(0)}</span>
+				</div>
+				<div>
+					<p class="text-stone-900 text-sm font-semibold">{t.name}</p>
+					<p class="text-stone-400 text-xs">{t.role}</p>
+				</div>
+				</div>
+			</div>
+			))}
+		</div>
+		</div>
+	</section>
+
+	<!-- ========== LLAMADO A LA ACCIÓN ========== -->
+	<section class="py-24 relative overflow-hidden bg-amber-800">
+		<div class="absolute inset-0 opacity-10">
+		<img
+			src="/fondoMadera.webp"
+			alt="Pilas de madera"
+			class="w-full h-full object-cover"
+			loading="lazy"
+		/>
+		</div>
+		<div class="reveal-up relative z-10 max-w-3xl mx-auto px-6 text-center">
+		<p class="text-amber-200 text-xs tracking-[0.3em] uppercase font-medium mb-6">Empecemos</p>
+		<h2 class="font-serif text-4xl md:text-5xl text-white leading-tight mb-6">
+			¿Tenés un proyecto en mente?
+		</h2>
+		<p class="text-amber-100 text-lg leading-relaxed mb-10 max-w-xl mx-auto">
+			Creamos muebles únicos adaptados a tu espacio, tu estilo y tu vida.
+			Cuéntanos tu idea — la hacemos realidad.
+		</p>
+		<a
+			href="https://wa.me/5491100000000"
+			target="_blank"
+			class="inline-flex items-center gap-3 bg-white hover:bg-amber-50 text-amber-900 px-10 py-4 text-sm tracking-widest uppercase font-bold transition-all duration-200 hover:shadow-2xl hover:-translate-y-1"
+		>
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+			<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+			</svg>
+			Contactar por WhatsApp
+		</a>
+		</div>
+	</section>
+
+	<!-- ========== CONTACTO ========== -->
+	<section id="contacto" class="py-28 bg-stone-200">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="grid lg:grid-cols-2 gap-16 lg:gap-24">
+			<!-- Info -->
+			<div class="reveal-left">
+			<p class="text-amber-700 text-xs tracking-[0.3em] uppercase font-medium mb-4">Hablemos</p>
+			<h2 class="font-serif text-4xl md:text-5xl text-stone-900 leading-tight mb-8">
+				Ponete en contacto
+			</h2>
+			<p class="text-stone-500 text-base leading-relaxed mb-10">
+				Estamos disponibles para responder todas tus consultas y ayudarte a
+				planificar tu próximo proyecto en madera.
+			</p>
+
+			<div class="space-y-6">
+				{[
+				{
+					icon: `<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13.5 19.79 19.79 0 01.06 4.82 2 2 0 012 2.68h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 9.4a16 16 0 006 6l1.16-1.16a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>`,
+					label: 'Teléfono',
+					value: '+54 9 11 0000-0000',
+					href: 'tel:+5491100000000',
+				},
+				{
+					icon: `<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>`,
+					label: 'Email',
+					value: 'info@artesanosmadera.com',
+					href: 'mailto:info@artesanosmadera.com',
+				},
+				{
+					icon: `<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>`,
+					label: 'Dirección',
+					value: 'Av. Los Plátanos 1240, Córdoba',
+					href: '#',
+				},
+				].map(info => (
+				<a href={info.href} class="flex items-start gap-4 group">
+					<div class="w-11 h-11 flex-shrink-0 bg-amber-50 group-hover:bg-amber-100 flex items-center justify-center transition-colors duration-200">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-amber-700">
+						<Fragment set:html={info.icon} />
+					</svg>
+					</div>
+					<div>
+					<p class="text-stone-400 text-xs uppercase tracking-widest mb-0.5">{info.label}</p>
+					<p class="text-stone-800 font-medium group-hover:text-amber-800 transition-colors">{info.value}</p>
+					</div>
+				</a>
+				))}
+			</div>
+
+			<a
+				href="https://wa.me/5491100000000"
+				target="_blank"
+				class="mt-10 inline-flex items-center gap-3 bg-green-600 hover:bg-green-500 text-white px-7 py-3.5 text-sm tracking-wide font-semibold transition-all duration-200 hover:shadow-lg"
+			>
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+				<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+				</svg>
+				Escribinos por WhatsApp
+			</a>
+			</div>
+
+			<!-- Form -->
+			<div class="reveal-right bg-stone-50 p-8 md:p-10">
+			<h3 class="font-serif text-2xl text-stone-900 mb-7">Envianos tu consulta</h3>
+			<div class="space-y-5">
+				<div class="grid sm:grid-cols-2 gap-5">
+				<div>
+					<label class="block text-stone-500 text-xs tracking-widest uppercase mb-2">Nombre</label>
+					<input
+					type="text"
+					placeholder="Tu nombre"
+					class="w-full bg-white border border-stone-200 focus:border-amber-500 outline-none px-4 py-3 text-stone-700 text-sm transition-colors duration-200"
+					/>
+				</div>
+				<div>
+					<label class="block text-stone-500 text-xs tracking-widest uppercase mb-2">Teléfono</label>
+					<input
+					type="tel"
+					placeholder="+54 9 11..."
+					class="w-full bg-white border border-stone-200 focus:border-amber-500 outline-none px-4 py-3 text-stone-700 text-sm transition-colors duration-200"
+					/>
+				</div>
+				</div>
+				<div>
+				<label class="block text-stone-500 text-xs tracking-widest uppercase mb-2">Email</label>
+				<input
+					type="email"
+					placeholder="tu@email.com"
+					class="w-full bg-white border border-stone-200 focus:border-amber-500 outline-none px-4 py-3 text-stone-700 text-sm transition-colors duration-200"
+				/>
+				</div>
+				<div>
+				<label class="block text-stone-500 text-xs tracking-widest uppercase mb-2">Servicio</label>
+				<select class="w-full bg-white border border-stone-200 focus:border-amber-500 outline-none px-4 py-3 text-stone-600 text-sm transition-colors duration-200 appearance-none">
+					<option value="">Seleccioná un servicio</option>
+					<option>Muebles a medida</option>
+					<option>Cocina de madera</option>
+					<option>Placard / Vestidor</option>
+					<option>Restauración</option>
+					<option>Deck / Pérgola</option>
+					<option>Otro</option>
+				</select>
+				</div>
+				<div>
+				<label class="block text-stone-500 text-xs tracking-widest uppercase mb-2">Mensaje</label>
+				<textarea
+					rows="4"
+					placeholder="Contanos sobre tu proyecto..."
+					class="w-full bg-white border border-stone-200 focus:border-amber-500 outline-none px-4 py-3 text-stone-700 text-sm transition-colors duration-200 resize-none"
+				></textarea>
+				</div>
+				<button
+				type="button"
+				class="w-full bg-amber-800 hover:bg-amber-700 text-white py-4 text-sm tracking-widest uppercase font-semibold transition-all duration-200 hover:shadow-lg"
+				>
+				Enviar consulta
+				</button>
+			</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<!-- ========== FOOTER ========== -->
+	<footer class="bg-stone-950 text-stone-400">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+		<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+			<!-- Brand -->
+			<div class="lg:col-span-2">
+			<div class="flex items-center gap-3 mb-5">
+				<div class="w-9 h-9 bg-amber-700 flex items-center justify-center">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+					<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+					<polyline points="9 22 9 12 15 12 15 22"/>
+				</svg>
+				</div>
+				<span class="text-white font-serif text-xl tracking-wide">
+				Artesanos<span class="text-amber-500">.</span>
+				</span>
+			</div>
+			<p class="text-stone-500 text-sm leading-relaxed max-w-xs">
+				Carpintería artesanal de alta calidad en Córdoba, Argentina.
+				Más de 25 años creando espacios únicos en madera.
+			</p>
+			<!-- Social -->
+			<div class="flex gap-3 mt-7">
+				{[
+				{ icon: `<path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>`, href: '#' },
+				{ icon: `<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>`, href: '#' },
+				].map(s => (
+				<a href={s.href} class="w-9 h-9 flex items-center justify-center border border-stone-800 hover:border-amber-600 hover:text-amber-400 transition-all duration-200">
+					<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<Fragment set:html={s.icon} />
+					</svg>
+				</a>
+				))}
+			</div>
+			</div>
+
+			<!-- Quick Links -->
+			<div>
+			<p class="text-white text-xs tracking-[0.2em] uppercase mb-5">Navegación</p>
+			<ul class="space-y-3">
+				{['Inicio','Servicios','Trabajos','Nosotros','Contacto'].map(link => (
+				<li>
+					<a href={`#${link.toLowerCase()}`} class="text-stone-500 hover:text-amber-400 text-sm transition-colors duration-200">
+					{link}
+					</a>
+				</li>
+				))}
+			</ul>
+			</div>
+
+			<!-- Services -->
+			<div>
+			<p class="text-white text-xs tracking-[0.2em] uppercase mb-5">Servicios</p>
+			<ul class="space-y-3">
+				{['Muebles a medida','Cocinas','Placares','Restauración','Decks'].map(s => (
+				<li>
+					<a href="#servicios" class="text-stone-500 hover:text-amber-400 text-sm transition-colors duration-200">
+					{s}
+					</a>
+				</li>
+				))}
+			</ul>
+			</div>
+		</div>
+
+		<!-- Bottom bar -->
+		<div class="border-t border-stone-900 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+			<p class="text-stone-600 text-xs">
+			© 2026 Artesanos Carpintería. Todos los derechos reservados.
+			</p>
+			<p class="text-stone-700 text-xs">
+			Córdoba, Argentina
+			</p>
+		</div>
+		</div>
+	</footer>
+
+	<!-- ========== FLOATING WHATSAPP ========== -->
+	<a
+		href="https://wa.me/5491100000000"
+		target="_blank"
+		class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full flex items-center justify-center shadow-2xl hover:shadow-green-500/40 hover:scale-110 transition-all duration-200"
+		aria-label="WhatsApp"
+	>
+		<svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+		<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+		</svg>
+	</a>
+
 </Layout>
+
+<!-- ========== STYLES ========== -->
+<style>
+	/* ---- Hero: animaciones al cargar la página ---- */
+	@keyframes fadeUp {
+		from {
+			opacity: 0;
+			transform: translateY(28px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.hero-fade-up {
+		opacity: 0;
+		animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+	}
+
+	/* ---- Evita scroll horizontal por los translateX ---- */
+	html, body {
+		overflow-x: hidden;
+	}
+
+	/* Evita el scroll horizontal causado por elementos fuera del viewport */
+	html, body {
+		overflow-x: hidden;
+	}
+
+	/* ---- Scroll reveal: estado inicial (invisible) ---- */
+	.reveal-up {
+		opacity: 0;
+		transform: translateY(40px);
+		transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+					transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.reveal-left {
+		opacity: 0;
+		transform: translateX(-48px);
+		transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+					transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.reveal-right {
+		opacity: 0;
+		transform: translateX(48px);
+		transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+					transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.stagger-card {
+		opacity: 0;
+		transform: translateY(36px);
+		transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+					transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: var(--stagger-delay, 0ms);
+	}
+
+	/* ---- Estado visible (clase añadida por JS) ---- */
+	.reveal-up.is-visible,
+	.reveal-left.is-visible,
+	.reveal-right.is-visible,
+	.stagger-card.is-visible {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+
+	/* Respeta la preferencia de movimiento reducido */
+	@media (prefers-reduced-motion: reduce) {
+		.hero-fade-up,
+		.reveal-up,
+		.reveal-left,
+		.reveal-right,
+		.stagger-card {
+			animation: none;
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+	}
+</style>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+	// Smooth scroll
+	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		anchor.addEventListener('click', e => {
+			const href = anchor.getAttribute('href');
+			if (href === '#') return;
+			e.preventDefault();
+			const target = document.querySelector(href);
+			if (target) {
+				target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				const menu = document.getElementById('mobile-menu');
+				if (menu) menu.classList.add('hidden');
+			}
+		});
+	});
+
+	// Mobile menu toggle
+	const toggle = document.getElementById('menu-toggle');
+	const mobileMenu = document.getElementById('mobile-menu');
+	toggle?.addEventListener('click', () => {
+		mobileMenu?.classList.toggle('hidden');
+	});
+
+	// Navbar scroll shadow
+	const navbar = document.getElementById('navbar');
+	window.addEventListener('scroll', () => {
+		if (window.scrollY > 10) {
+			navbar?.classList.add('shadow-md');
+		} else {
+			navbar?.classList.remove('shadow-md');
+		}
+	}, { passive: true });
+
+	// ---- Scroll Reveal con Intersection Observer ----
+	const revealSelectors = '.reveal-up, .reveal-left, .reveal-right, .stagger-card';
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+					// Una vez visible, dejamos de observar (la animación no se repite)
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{
+			threshold: 0.12,       // dispara cuando el 12% del elemento es visible
+			rootMargin: '0px 0px -40px 0px'  // un poco antes del borde inferior
+		}
+	);
+
+	document.querySelectorAll(revealSelectors).forEach(el => {
+		observer.observe(el);
+	});
+</script>
